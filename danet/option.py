@@ -13,9 +13,9 @@ class Options():
         parser = argparse.ArgumentParser(description='PyTorch \
             Segmentation')
         # model and dataset 
-        parser.add_argument('--model', type=str, default='encnet',
+        parser.add_argument('--model', type=str, default='danet',
                             help='model name (default: encnet)')
-        parser.add_argument('--backbone', type=str, default='resnet50',
+        parser.add_argument('--backbone', type=str, default='resnet101',
                             help='backbone name (default: resnet50)')
         parser.add_argument('--dataset', type=str, default='cityscapes',
                             help='dataset name (default: pascal12)')
@@ -23,30 +23,30 @@ class Options():
                             default=os.path.join(os.environ['HOME'], 'data'),
                             help='training dataset folder (default: \
                             $(HOME)/data)')
-        parser.add_argument('--workers', type=int, default=16,
+        parser.add_argument('--workers', type=int, default=2,
                             metavar='N', help='dataloader threads')
-        parser.add_argument('--base-size', type=int, default=608,
+        parser.add_argument('--base-size', type=int, default=1024,
                             help='base image size')
-        parser.add_argument('--crop-size', type=int, default=576,
+        parser.add_argument('--crop-size', type=int, default=768,
                             help='crop image size')
         # training hyper params
 
-        parser.add_argument('--aux', action='store_true', default= False,
+        parser.add_argument('--aux', action='store_true', default= True,
                             help='Auxilary Loss')
-        parser.add_argument('--se-loss', action='store_true', default= False,
+        parser.add_argument('--se-loss', action='store_true', default= True,
                             help='Semantic Encoding Loss SE-loss')
-        parser.add_argument('--epochs', type=int, default=None, metavar='N',
+        parser.add_argument('--epochs', type=int, default=240, metavar='N',
                             help='number of epochs to train (default: auto)')
         parser.add_argument('--start_epoch', type=int, default=0,
                             metavar='N', help='start epochs (default:0)')
-        parser.add_argument('--batch-size', type=int, default=None,
+        parser.add_argument('--batch-size', type=int, default=1,
                             metavar='N', help='input batch size for \
                             training (default: auto)')
         parser.add_argument('--test-batch-size', type=int, default=None,
                             metavar='N', help='input batch size for \
                             testing (default: same as batch size)')
         # optimizer params
-        parser.add_argument('--lr', type=float, default=None, metavar='LR',
+        parser.add_argument('--lr', type=float, default=0.003, metavar='LR',
                             help='learning rate (default: auto)')
         parser.add_argument('--lr-scheduler', type=str, default='poly',
                             help='learning rate scheduler (default: poly)')
@@ -69,7 +69,7 @@ class Options():
                             help='put the path to resuming file if needed')
         parser.add_argument('--resume-dir', type=str, default=None,
                             help='put the path to resuming dir if needed')
-        parser.add_argument('--checkname', type=str, default='default',
+        parser.add_argument('--checkname', type=str, default='danet101',
                             help='set the checkpoint name')
         parser.add_argument('--model-zoo', type=str, default=None,
                             help='evaluating on model zoo model')
@@ -95,9 +95,9 @@ class Options():
         parser.add_argument('--multi-scales',action="store_true", default=False,
                             help="testing scale,default:1.0(single scale)")
         # multi grid dilation option
-        parser.add_argument("--multi-grid", action="store_true", default=False,
+        parser.add_argument("--multi-grid", action="store_true", default=True,
                             help="use multi grid dilation policy")
-        parser.add_argument('--multi-dilation', nargs='+', type=int, default=None,
+        parser.add_argument('--multi-dilation', nargs='+', type=int, default=[4,8,16],
                             help="multi grid dilation list")
         parser.add_argument('--scale', action='store_false', default=True,
                            help='choose to use random scale transform(0.75-2),default:multi scale')
