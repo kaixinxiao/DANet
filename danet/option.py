@@ -20,7 +20,7 @@ class Options():
         parser.add_argument('--dataset', type=str, default='cityscapes',
                             help='dataset name (default: pascal12)')
         parser.add_argument('--data-folder', type=str,
-                            default=os.path.join(os.environ['HOME'], 'data'),
+                            default='/home/ms/Downloads/cityscapes',
                             help='training dataset folder (default: \
                             $(HOME)/data)')
         parser.add_argument('--workers', type=int, default=2,

@@ -21,7 +21,7 @@ from .base import BaseDataset
 class CityscapesSegmentation(BaseDataset):
     BASE_DIR = 'cityscapes'
     NUM_CLASS = 19
-    def __init__(self, root='../datasets', split='train',
+    def __init__(self, root='/home/ms/DANet/datasets', split='train',
                  mode=None, transform=None, target_transform=None, **kwargs):
         super(CityscapesSegmentation, self).__init__(
             root, split, mode, transform, target_transform, **kwargs)
@@ -81,9 +81,9 @@ def _get_cityscapes_pairs(folder, split='train'):
         mask_paths = []
         with open(split_f, 'r') as lines:
             for line in tqdm(lines):
-                ll_str = re.split('\t', line)
-                imgpath = os.path.join(folder,ll_str[0].rstrip())
-                maskpath = os.path.join(folder,ll_str[1].rstrip())
+                ll_str = re.split(' ', line)
+                imgpath = os.path.join(ll_str[0].rstrip())
+                maskpath = os.path.join(ll_str[1].rstrip())
                 if os.path.isfile(maskpath):
                     img_paths.append(imgpath)
                     mask_paths.append(maskpath)
